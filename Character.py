@@ -18,32 +18,7 @@ class Character:
         self.xp += amount
         self.check_level_up() # check if character can level up
                
-    def level_up(self):
-        if self.character_class == "Warrior":
-            # increase states related to warrior by 50% else only 20%
-            self.strength *= 1.5
-            self.attack *= 1.5
-            self.health *= 1.5
-            self.defense *= 1.5
-            self.intelligence *= 1.2
-            self.dexterity *= 1.2
-        elif self.character_class == "Mage":
-            self.attack *= 1.8
-            self.strength *= 1.2
-            self.health *= 1.2
-            self.defense *= 1.1
-            self.intelligence *= 2
-            self.dexterity *= 1.2
-        
-        
-        
-    def check_level_up (self):
-        if self.xp > self.xp_to_next_level:
-            self.level += 1
-            self.level_up()
-            # increse xp needed by 20% to get to next level
-            self.xp_to_next_level *= 1.2
- 
+
         
 
     @property
