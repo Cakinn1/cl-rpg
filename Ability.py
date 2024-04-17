@@ -5,14 +5,22 @@ class Ability:
         self.mana_cost = mana_cost
         self.success_rate = success_rate
         ...
+        def __str__(self):
+            return f"{self.name} (Mana: {self.mana_cost}, Damage: {self.damage})"
+        
         
     def use(self, user, target):
+        if user.mana <= self.mana_cost:
+            print("Not enough mana")
+            return True
+        else:
+            target.health -= self.damage
+            user.mana -= self.mana_cost
         
         # add failing success rate here
         # and add a way for the cmoputer to use this class too
         
-        target.health -= self.damage
-        user.mana -= self.mana_cost
+
         
     def attack_name(self):
         return f"{self.name}"
