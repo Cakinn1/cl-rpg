@@ -1,6 +1,6 @@
-# Legends of Valor: Turn-Based RPG Adventure
+# Project Title - Legends of Valor: Turn-Based RPG Adventure
 
-#### Video Demo: [Link to your demo on YouTube] 
+#### Video Demo: https://www.youtube.com/watch?v=h1j0tyOD1MM
 
 **Embark on a classic RPG quest! Choose your path, battle fearsome foes, and watch your hero grow stronger.**
 
@@ -16,7 +16,7 @@
 **Files and Functionality**
 
 * **Player.py:**  The heart of your hero – defines attributes, abilities, and progression.
-* **Enemy.py:**  Houses the foes you'll face, from goblins to mighty bosses.
+* **Enemy.py:**  Houses the foes you'll face.
 * **Battle.py:**  Where the action happens! Governs turn order, damage, and victory conditions.
 * **Ability.py:**  Gives your character unique powers and combat options.
 * **project.py:**  The launchpad for your adventure, handling setup and the main menu. 
