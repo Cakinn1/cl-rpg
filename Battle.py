@@ -51,7 +51,8 @@ class Battle:
             if self.check_battle_over():
                 break
                 
-            print(f"players health: {self.player.health}")
+            print(f"Players Health: {self.player.health}")
+            print(f"Players Mana: {self.player.mana}")
             print(f"{self.enemy.name} health: {self.enemy.health}")
             print('')
                 

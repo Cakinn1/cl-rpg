@@ -14,7 +14,7 @@ class Player(Entity):
         self.xp = xp
         self.character_class = character_class
         self.name = name
-        self.inventory = ["health potion"]
+        self.inventory = ["health potion", 'mana potion', 'health potion']
         self.abiilities = []
         self._initialize_player_stats()
         
@@ -35,12 +35,8 @@ class Player(Entity):
             print(f"{i + 1}. {self.abiilities[i].name} (Mana: {self.abiilities[i].mana_cost}, Damage: {self.abiilities[i].damage})")
             
         while True:
-            choice = input("Choose an ability (or 'b' to exit): ") 
-            # add nbetter error handling here
-            
+            choice = input("Choose an ability (or 'b' to exit program): ") 
             if choice == "b":
-                # for some reason break and return is not working
-                # temp fix for now need to figure out what is going on wrong
                 sys.exit()
             elif choice.isdigit() and int(choice) > 0 and int(choice) <= len(self.abiilities):
                 choosen_ability_index = int(choice) - 1
@@ -99,19 +95,18 @@ class Player(Entity):
                ,)
     @property        
     def view_stat(self):
-        abilities_info = [f"{ability.name} (Mana: {ability.mana_cost}, Damage: {ability.damage})" for ability in self.abiilities]
-            
+        abilities_info = [f"{ability.name} (Mana: {ability.mana_cost:.2f}, Damage: {ability.damage:.2f})" for ability in self.abiilities]        
         return {
-            "Strength": self.strength, 
-            "Dexterity": self.dexterity, 
-            "Intelligence": self.intelligence,
-            "Health": self.health,
-            "Level": self.level,
-            "XP": self.xp,
+            "Strength": f"{self.strength:.2f}", 
+            "Dexterity": f"{self.dexterity:.2f}", 
+            "Intelligence": f"{self.intelligence:.2f}",
+            "Health": f"{self.health:.2f}",
+            "Level": self.level,  # No need to format integers
+            "XP": f"{self.xp:.2f}",
             "Class": self.character_class,
-            "Attack": self.attack,
+            "Attack": f"{self.attack:.2f}",
             "Abilities": abilities_info,
-            "mana": self.mana
+            "mana": f"{self.mana:.2f}" 
             }
             
     def increase_stats (self, stat_increase):
@@ -132,19 +127,27 @@ class Player(Entity):
             print(f"{item} Not in Inventory")
             return False
             
-    def use_potion(self, potion_type):
-        try:
-            self.inventory.remove(potion_type)
-            self.apply_potion_effects(potion_type)
-            return True
-        except ValueError:  # ValueError occurs if the item is not in the list
-            print(f"Failed to use {potion_type}!")
-        except Exception as e: 
-            print(f"An error occurred while using a potion: {e}")
+    def use_potion(self, index):
+
+        self.apply_potion_effects(index)
+        del self.inventory[index]
+        # try:
+        #     self.inventory.remove(potion_type)
+        #     self.apply_potion_effects(potion_type)
+        #     return True
+        # except ValueError:  # ValueError occurs if the item is not in the list
+        #     print(f"Failed to use {potion_type}!")
+        # except Exception as e: 
+        #     print(f"An error occurred while using a potion: {e}")
             
   
+  
             
-    def apply_potion_effects (self, potion_type):
+    def apply_potion_effects (self, index):
+        try:
+            potion_type = self.inventory[index]
+        except IndexError:
+            print("Index is not in list")
         if potion_type == "health potion":
             self.health += self.HEALTH_POTION_AMOUNT
             print(f"Current Health: {self.health}")

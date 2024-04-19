@@ -20,9 +20,6 @@ class Ability:
         # add failing success rate here
         # and add a way for the cmoputer to use this class too
         
-
-        
     def attack_name(self):
         return f"{self.name}"
-        
     ...

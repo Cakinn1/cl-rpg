@@ -7,8 +7,7 @@ player = Player()
 enemy_1 = Enemy(attack=10, health=100, mana=40, defense=5, level=5, name="goblin")
 battle = Battle(player, enemy_1)
 
-def start_game():
-    ...
+def main():
     player.name = welcome_to_game()
     create_character = create_player(player)
     print(create_character)
@@ -17,11 +16,11 @@ def start_game():
 
 def welcome_to_game():
     print("")
-    print("################################")
+    print("##################################################################################")
     print("Welcome to Legends of Valor")
-    print("This is a turn-based RPG adventure!")
+    print("This is a turn-based RPG adventure with resource-management survival elements!")
     print("Defeat enemies, gain XP, and level up your hero.")   
-    print("################################")
+    print("##################################################################################")
     
     while True:
         print("")
@@ -44,10 +43,22 @@ def open_inventory ():
     print("")
     if len(player.inventory) >= 1:
         for i in range(len(player.inventory)):
-            print(f"{i + 1}: {player.inventory[i]}")
-        use_item = input("Type the item name to use it: ")
-        player.use_potion(use_item)
-        print("")
+            print(f"[{i}]: {player.inventory[i]}")
+            
+        while True:
+            try:
+                index_value = int(input("Enter the index value to use potion: "))
+                if index_value <= len(player.inventory):
+                    player.use_potion(index_value)
+                    print("")
+                    break
+                else:
+                    print()
+                    print(f"Index range must be between 0 and {len(player.inventory) - 1}")
+                    print()
+                    continue
+            except ValueError:
+                print("Must be a number")   
     else:
         print("No items in inventory")
         print("")
@@ -62,7 +73,6 @@ def create_player(player):
         print("")
         print(f"Welcome {player.name}")
         print("")
-        ...
     elif check_player_name.lower() == "n" or check_player_name.lower() == "no":
         print("")
         player.name = input("Enter Name: ")
@@ -71,11 +81,9 @@ def create_player(player):
     class_choice = get_valid_class_choice()    
     if class_choice == "0":
         player.character_class = "mage"
-                # fix abilities display
     elif class_choice == "1":
         player.character_class = "warrior"
     print("")
-    # need to fix the view_stats function
     player.add_starter_abilities()
     print(player.view_stat)
     print("")
@@ -98,9 +106,6 @@ def get_valid_class_choice():
         else:
             print("Invalid choice. Please enter 0 or 1.")
         
-        
-
-    
     
 def menu():
     print("###############")
@@ -123,7 +128,7 @@ def menu():
             elif int(select) == 1:   
                 open_inventory()             
             elif int(select) == 2:  
-               print(player.view_stat()) 
+               print(player.view_stat) 
                print("")
             menu()    
             break  
@@ -133,4 +138,4 @@ def menu():
 
 
 if __name__ == "__main__":
-    start_game()
+    main()
